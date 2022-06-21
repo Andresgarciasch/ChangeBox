@@ -9,6 +9,9 @@ export const SignUp = () => {
   const [LastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
+  const [birthday, setBirthday] = useState("");
+
   const [password, setPassword] = useState("");
   const [repeat, setRepeat] = useState("");
   const [check, setCheck] = useState(false);
@@ -118,7 +121,7 @@ export const SignUp = () => {
                           />
                           {errors.userName && (
                             <div className="text-warning">
-                              userName invalido perro de awa
+                              UserName invalido
                             </div>
                           )}
                         </div>
@@ -149,10 +152,76 @@ export const SignUp = () => {
                             }}
                           />
                           {errors.email && (
-                            <div className="text-warning">
-                              Correo invalido perro de awa
-                            </div>
+                            <div className="text-warning">Correo invalido</div>
                           )}
+                        </div>
+                      </div>
+
+                      {/* <div className="col-md-6 mb-4">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <select className="select">
+                          <option value="1" disabled>
+                            Nationality
+                          </option>
+                          <option value="2">V</option>
+                          <option value="3">E</option>
+                        </select>
+                      </div> */}
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fa-solid fa-earth-americas"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label
+                            className="form-label"
+                            htmlFor="form3Example1c"
+                          >
+                            Your ID Number
+                          </label>
+                          <input
+                            type="text"
+                            id="form3Example1c"
+                            className="form-control"
+                            onChange={(e) => setId(e.target.value)}
+                            onBlur={(e) => {
+                              let regex = /[VEve]-[0123456789]{7,8}/;
+
+                              if (regex.test(id)) {
+                                setErrors({ ...errors, id: false });
+                              } else {
+                                setErrors({ ...errors, id: true });
+                              }
+                            }}
+                          />
+                          {errors.id && (
+                            <div className="text-warning">ID invalido</div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <label className="form-label" htmlFor="form3Example4c">
+                          Enter your birthday
+                          <input
+                            type="date"
+                            className="form-control"
+                            onChange={(e) => setBirthday(e.target.value)}
+                          />
+                        </label>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <div className="form-outline flex-fill mb-0">
+                          <label
+                            className="form-label"
+                            htmlFor="form3Example1c"
+                          >
+                            file id
+                          </label>
+                          <input
+                            type="file"
+                            id="form3Example1c"
+                            className="form-control"
+                          />
                         </div>
                       </div>
 
@@ -163,15 +232,6 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            <div className="col-md-6 mb-4">
-                              <select className="select">
-                                <option value="1" disabled>
-                                  Nationality
-                                </option>
-                                <option value="2">V</option>
-                                <option value="3">E</option>
-                              </select>
-                            </div>
                             Password
                           </label>
                           <div className="d-flex">
