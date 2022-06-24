@@ -4,6 +4,19 @@ db = SQLAlchemy()
 
 # Datos de usuarios
 class User(db.Model):
+
+@classmethod
+    def create(cls, data):
+        try:
+            new_user = cls(**data)
+            db.session.add(new_user)
+            db.session.commit()
+            return new_user
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     lastname = db.Column(db.String(120), unique=True, nullable=False)
