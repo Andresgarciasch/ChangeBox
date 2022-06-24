@@ -9,8 +9,8 @@ export const SignUp = () => {
   const [LastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [id, setId] = useState("");
-  const [birthday, setBirthday] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeat, setShowRepeat] = useState(false);
 
   const [password, setPassword] = useState("");
   const [repeat, setRepeat] = useState("");
@@ -22,13 +22,12 @@ export const SignUp = () => {
     repeat: false,
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const history = useHistory();
 
   const handleSubmit = async () => {
     let data = {
       name: name,
+      name: LastName,
       email: email,
       password: password,
     };
@@ -49,7 +48,7 @@ export const SignUp = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Sign up
+                      Registro
                     </p>
 
                     <form className="mx-1 mx-md-4">
@@ -60,7 +59,7 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Your Name
+                            Nombre Completo
                           </label>
                           <input
                             type="text"
@@ -78,7 +77,7 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Your LastName
+                            Apellidos
                           </label>
                           <input
                             type="text"
@@ -96,7 +95,7 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Your UserName
+                            Nombre de Usuario
                           </label>
                           <input
                             type="text"
@@ -121,7 +120,7 @@ export const SignUp = () => {
                           />
                           {errors.userName && (
                             <div className="text-warning">
-                              UserName invalido
+                              Nombre de Usuario Invalido
                             </div>
                           )}
                         </div>
@@ -134,7 +133,7 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Your Email
+                            Correo Electrónico
                           </label>
                           <input
                             type="email"
@@ -152,23 +151,12 @@ export const SignUp = () => {
                             }}
                           />
                           {errors.email && (
-                            <div className="text-warning">Correo invalido</div>
+                            <div className="text-warning">Correo Invalido</div>
                           )}
                         </div>
                       </div>
 
-                      {/* <div className="col-md-6 mb-4">
-                        <i class="fa-solid fa-earth-americas"></i>
-                        <select className="select">
-                          <option value="1" disabled>
-                            Nationality
-                          </option>
-                          <option value="2">V</option>
-                          <option value="3">E</option>
-                        </select>
-                      </div> */}
-
-                      <div className="d-flex flex-row align-items-center mb-4">
+                      {/* <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa-solid fa-earth-americas"></i>
                         <div className="form-outline flex-fill mb-0">
                           <label
@@ -183,7 +171,7 @@ export const SignUp = () => {
                             className="form-control"
                             onChange={(e) => setId(e.target.value)}
                             onBlur={(e) => {
-                              let regex = /[VEve]-[0123456789]{7,8}/;
+                               let regex = /[VEve]-[0123456789]{7,8}/; //pendiente de revisar el limite de los caracteres de los regex y su funcionamiento general
 
                               if (regex.test(id)) {
                                 setErrors({ ...errors, id: false });
@@ -196,34 +184,18 @@ export const SignUp = () => {
                             <div className="text-warning">ID invalido</div>
                           )}
                         </div>
-                      </div>
+                      </div> */}
 
-                      <div className="d-flex flex-row align-items-center mb-4">
+                      {/* <div className="d-flex flex-row align-items-center mb-4">
                         <label className="form-label" htmlFor="form3Example4c">
-                          Enter your birthday
+                          Fecha de Nacimiento
                           <input
                             type="date"
                             className="form-control"
                             onChange={(e) => setBirthday(e.target.value)}
                           />
                         </label>
-                      </div>
-
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            file id
-                          </label>
-                          <input
-                            type="file"
-                            id="form3Example1c"
-                            className="form-control"
-                          />
-                        </div>
-                      </div>
+                      </div> */}
 
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
@@ -232,7 +204,7 @@ export const SignUp = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            Password
+                            Contraseña
                           </label>
                           <div className="d-flex">
                             <input
@@ -266,37 +238,52 @@ export const SignUp = () => {
                             <div className="text-warning">
                               recuerda que debe tener al menos 8 caracteres 1
                               letra minuscula 1 letra mayuscula 1 numero y un
-                              caracter especial perro
+                              caracter especial
                             </div>
                           )}
                         </div>
                       </div>
 
                       <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-key fa-lg me-3 fa-fw"></i>
+                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
                           <label
                             className="form-label"
                             htmlFor="form3Example4cd"
                           >
-                            Repeat your password
+                            Repetir Contraseña
                           </label>
-                          <input
-                            type="password"
-                            id="form3Example4cd"
-                            className="form-control"
-                            onChange={(e) => setRepeat(e.target.value)}
-                            onBlur={(e) => {
-                              if (repeat !== password) {
-                                setErrors({ ...errors, repeat: true });
-                              } else {
-                                setErrors({ ...errors, repeat: false });
+                          <div className="d-flex">
+                            <input
+                              type={showRepeat ? "text" : "password"}
+                              id="form3Example4cd"
+                              className="form-control"
+                              onChange={(e) => setRepeat(e.target.value)}
+                              onBlur={(e) => {
+                                if (repeat !== password) {
+                                  setErrors({ ...errors, repeat: true });
+                                } else {
+                                  setErrors({ ...errors, repeat: false });
+                                }
+                              }}
+                            />
+
+                            <button
+                              className={
+                                showRepeat
+                                  ? "fa fa-eye-slash"
+                                  : "fa fa-eye password-icon"
                               }
-                            }}
-                          />
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setShowRepeat(!showRepeat);
+                              }}
+                            ></button>
+                          </div>
+
                           {errors.repeat && (
                             <div className="text-warning">
-                              contraseña diferente perro de awa
+                              contraseña diferente
                             </div>
                           )}
                         </div>
@@ -314,8 +301,8 @@ export const SignUp = () => {
                           className="form-check-label"
                           htmlFor="form2Example3"
                         >
-                          I agree all statements in{" "}
-                          <a href="#!">Terms of service</a>
+                          Acepto los terminos dentro de{" "}
+                          <a href="#!">Terminos de servicio</a>
                         </label>
                       </div>
 
@@ -335,7 +322,7 @@ export const SignUp = () => {
                             !repeat.length > 0
                           }
                         >
-                          Register
+                          Registrar
                         </button>
                       </div>
                       <Link className="m-auto" to={"/login"}>
@@ -344,11 +331,11 @@ export const SignUp = () => {
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                    {/* <img
+                    <img
                       src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                       className="img-fluid"
                       alt="Sample image"
-                    /> */}
+                    />
                   </div>
                 </div>
               </div>
