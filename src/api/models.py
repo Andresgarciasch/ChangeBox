@@ -23,9 +23,9 @@ class User(db.Model):
     score = db.Column(db.Integer, unique=True, nullable=False)
     reputation = db.Column(db.Float, unique=True, nullable=False)
     # Añadir relación con "compra" (dos usuarios por transacción)
-    Buy_user = db.relationship('Buypublications', lazy = True, backref='user')
+    buy_user = db.relationship('Buypublications', lazy = True, backref='user')
     # Añadir relación con "venta" (dos usuarios por transacción)
-    Sell_user = db.relationship('Sellpublications', lazy = True, backref='user')
+    sell_user = db.relationship('Sellpublications', lazy = True, backref='user')
     # Añadir relación con "historial de transacciones" (dos usuarios por transacción - relación varios a uno)
     # No queda clara la relación con la base de datos "historial de transacciones"
     # ¿Tendría que añadir un registro de usuario cada vez que dicho usuario participa en una transacción?
@@ -95,7 +95,7 @@ class Buypublications(db.Model):
     # Añadir relación con usuario que vende/se une (Varios a uno)
     user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
     # Añadir relación con historial de operaciones
-    Buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
+    buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
 
     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
         self.exchange_rate = new_exchange_rate
@@ -131,7 +131,7 @@ class Sellpublications(db.Model):
     balance = db.Column(db.Float, unique=True, nullable=False)
     message = db.Column(db.String(280), unique=True, nullable=False)
     # preferred_banks puede provenir de una lista desplegable?
-    # preferred_banks = 
+    preferred_banks = db.Column(db.String(280), unique=True, nullable=False)
     # 4 status = [open, trading, filled, canceled]
     status = db.Column(db.String(120), unique=True, nullable=False)
     # Añadir relación con usuario que vende/publica (Varios a uno)
@@ -139,7 +139,7 @@ class Sellpublications(db.Model):
     # Añadir relación con usuario que compra/se une (Varios a uno)
     user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
     # Añadir relación con historial de operaciones
-    Sell_op = db.relationship('Transactionhistory', lazy = True, backref='sellpublications')
+    sell_op = db.relationship('Transactionhistory', lazy = True, backref='sellpublications')
 
     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
         self.exchange_rate = new_exchange_rate
