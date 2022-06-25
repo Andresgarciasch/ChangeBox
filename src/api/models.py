@@ -15,15 +15,21 @@ class User(db.Model):
     birthday = db.Column(db.DateTime, unique=False, nullable=False)
     identification = db.Column(db.String(120), unique=True, nullable=False)
     nationality = db.Column(db.String(120), unique=True, nullable=False)
+    # ¿Cómo se añaden los archivos adjuntos?
     # attached_file = db.Column(db.XXXXXX, unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     # Funcionamiento
-    reputation = db.Column(db.Float, unique=True, nullable=False)
     completed_trades = db.Column(db.Integer, unique=True, nullable=False)
     score = db.Column(db.Integer, unique=True, nullable=False)
+    reputation = db.Column(db.Float, unique=True, nullable=False)
+    # Añadir relación con "compra" (dos usuarios por transacción)
+    Buy_user = db.relationship('Buypublications', lazy = True, backref='user')
+    # Añadir relación con "venta" (dos usuarios por transacción)
+    Sell_user = db.relationship('Sellpublications', lazy = True, backref='user')
     # Añadir relación con "historial de transacciones" (dos usuarios por transacción - relación varios a uno)
-    # Añadir relación con "compra" (dos usuarios por transacción - relación uno a varios)
-    # Añadir relación con "venta" (dos usuarios por transacción - relación uno a varios)
+    # No queda clara la relación con la base de datos "historial de transacciones"
+    # ¿Tendría que añadir un registro de usuario cada vez que dicho usuario participa en una transacción?
+    # User_historic = db.relationship('Transactionhistory', lazy = True, backref='user')
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -84,9 +90,12 @@ class Buypublications(db.Model):
     # preferred_banks = 
     # 4 status = [open, trading, filled, canceled]
     status = db.Column(db.String(120), unique=True, nullable=False)
-    # Añadir relación con usuario que compra
-    # Añadir relación con usuario que vende
+    # Añadir relación con usuario que compra/publica (Varios a uno)
+    user_id_pub = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # Añadir relación con usuario que vende/se une (Varios a uno)
+    user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
     # Añadir relación con historial de operaciones
+    Buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
 
     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
         self.exchange_rate = new_exchange_rate
@@ -97,7 +106,7 @@ class Buypublications(db.Model):
         return True
 
     # Más que borrar, se debería ocultar de la pizarra pero el registro debe quedar en base de datos
-    # Al cancelar la publicación cambia a estatus cancelado y
+    # Al cancelar la publicación cambia a estatus cancelado
     # def delete(self):
     #     db.session.delete(self)
     #     db.session.commit()
@@ -125,9 +134,12 @@ class Sellpublications(db.Model):
     # preferred_banks = 
     # 4 status = [open, trading, filled, canceled]
     status = db.Column(db.String(120), unique=True, nullable=False)
-    # Añadir relación con usuario que compra
-    # Añadir relación con usuario que vende
+    # Añadir relación con usuario que vende/publica (Varios a uno)
+    user_id_pub = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # Añadir relación con usuario que compra/se une (Varios a uno)
+    user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
     # Añadir relación con historial de operaciones
+    Sell_op = db.relationship('Transactionhistory', lazy = True, backref='sellpublications')
 
     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
         self.exchange_rate = new_exchange_rate
@@ -138,7 +150,7 @@ class Sellpublications(db.Model):
         return True
 
     # Más que borrar, se debería ocultar de la pizarra pero el registro debe quedar en base de datos
-    # Al cancelar la publicación cambia a estatus cancelado y
+    # Al cancelar la publicación cambia a estatus cancelado
     # def delete(self):
     #     db.session.delete(self)
     #     db.session.commit()
@@ -160,15 +172,27 @@ class Transactionhistory(db.Model):
     date = db.Column(db.DateTime, unique=False, nullable=False)
     exchange_rate = db.Column(db.Float, unique=True, nullable=False)
     balance = db.Column(db.Float, unique=True, nullable=False)
+    # # # ¿Cómo se añade el tipo de publicación? ¿Compra y venta?
     # 4 status = [open, trading, filled, canceled]
     status = db.Column(db.String(120), unique=True, nullable=False)
     # Añadir relación con publicaciones de compra
+    buy_pub = db.Column(db.Integer, db.ForeignKey('Buypublications.id'))
     # Añadir relación con publicaciones de venta
+    sell_pub = db.Column(db.Integer, db.ForeignKey('Sellpublications.id'))
+    # ¿Añadir relación con usuario?
+    # user_id_pub = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
+    
 
     def serialize(self):
         return {
             "id": self.id,
             "date": self.date,
             "exchange_rate": self.exchange_rate,
-            "balance": self.balance
+            "balance": self.balance,
+            "status": self.status,
+            "buy_pub": self.buy_pub,
+            "sell_pub": self.sell_pub,
+            "user_id_pub": self.user_id_pub,
+            "user_id_join": self.user_id_join
         }
