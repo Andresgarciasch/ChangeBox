@@ -87,7 +87,7 @@ class Buypublications(db.Model):
     balance = db.Column(db.Float, unique=True, nullable=False)
     message = db.Column(db.String(280), unique=True, nullable=False)
     # preferred_banks puede provenir de una lista desplegable?
-    # preferred_banks = 
+    preferred_banks = db.Column(db.String(280), unique=True, nullable=False)
     # 4 status = [open, trading, filled, canceled]
     status = db.Column(db.String(120), unique=True, nullable=False)
     # Añadir relación con usuario que compra/publica (Varios a uno)
