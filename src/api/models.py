@@ -193,6 +193,6 @@ class Transactionhistory(db.Model):
             "status": self.status,
             "buy_pub": self.buy_pub,
             "sell_pub": self.sell_pub,
-            "user_id_pub": self.user_id_pub,
-            "user_id_join": self.user_id_join
+            # "user_id_pub": self.user_id_pub,
+            # "user_id_join": self.user_id_join
         }
