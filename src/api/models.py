@@ -17,6 +17,8 @@ class User(db.Model):
     nationality = db.Column(db.String(120), unique=True, nullable=False)
     # ¿Cómo se añaden los archivos adjuntos?
     # attached_file = db.Column(db.XXXXXX, unique=False, nullable=False)
+    # Subir imagen al backend -> Acceder por ruta del backend
+    # https://flask.palletsprojects.com/en/2.1.x/patterns/fileuploads/
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     # Funcionamiento
     completed_trades = db.Column(db.Integer, unique=True, nullable=False)
