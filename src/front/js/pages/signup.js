@@ -27,11 +27,11 @@ export const SignUp = () => {
   const handleSubmit = async () => {
     let data = {
       name: name,
-      name: LastName,
+      lastname: LastName,
+      username: userName,
       email: email,
       password: password,
     };
-
     if (actions.registerUser(data)) {
       history.push("/private");
     } else {

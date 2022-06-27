@@ -12,18 +12,18 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     # Verificación
-    birthday = db.Column(db.DateTime, unique=False, nullable=False)
-    identification = db.Column(db.String(120), unique=True, nullable=False)
-    nationality = db.Column(db.String(120), unique=True, nullable=False)
+    birthday = db.Column(db.DateTime, unique=False, nullable=True)
+    identification = db.Column(db.String(120), unique=True, nullable=True)
+    nationality = db.Column(db.String(120), unique=True, nullable=True)
     # ¿Cómo se añaden los archivos adjuntos?
     # attached_file = db.Column(db.XXXXXX, unique=False, nullable=False)
     # Subir imagen al backend -> Acceder por ruta del backend
     # https://flask.palletsprojects.com/en/2.1.x/patterns/fileuploads/
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=True)
     # Funcionamiento
-    completed_trades = db.Column(db.Integer, unique=True, nullable=False)
-    score = db.Column(db.Integer, unique=True, nullable=False)
-    reputation = db.Column(db.Float, unique=True, nullable=False)
+    completed_trades = db.Column(db.Integer, unique=True, nullable=True)
+    score = db.Column(db.Integer, unique=True, nullable=True)
+    reputation = db.Column(db.Float, unique=True, nullable=True)
     # Añadir relación con "compra" (dos usuarios por transacción)
     # buy_user = db.relationship('Buypublications', lazy = True, backref='user')
     # Añadir relación con "venta" (dos usuarios por transacción)

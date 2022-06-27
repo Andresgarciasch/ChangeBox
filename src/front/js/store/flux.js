@@ -46,12 +46,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       registerUser: async (data) => {
+        console.log(data);
         try {
           const response = await fetch(
             `${process.env.BACKEND_URL}/api/register-user`,
             {
               method: "POST",
               body: JSON.stringify(data),
+              headers: { "Content-Type": "application/json" },
             }
           );
 

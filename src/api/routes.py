@@ -20,13 +20,16 @@ def handle_hello():
 
 @api.route('/register-user', methods=['POST'])
 def handle_register():
-    
-    user = User(**data)
-    user.create()
-    response_body = {
-        "message": "Creado el usuario"
-    }
-    return jsonify(response_body), 201
+
+    data = request.json
+    user = User.create(data)
+    if user is not None: 
+
+        response_body = {
+            "message": "Creado el usuario"
+        }
+        return jsonify(response_body), 201
+    return jsonify({"message": "Ocurrio un error"}), 500    
 
     # data = request.json
     # print(data)
