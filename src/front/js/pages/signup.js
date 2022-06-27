@@ -27,14 +27,15 @@ export const SignUp = () => {
   const handleSubmit = async () => {
     let data = {
       name: name,
-      name: LastName,
+      lastname: LastName,
+      username: userName,
       email: email,
       password: password,
     };
-    if (await actions.registerUser(data)) {
+    if (actions.registerUser(data)) {
       history.push("/private");
     } else {
-      alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
+      alert("Algo salio mal intente de nuevo");
     }
   };
 
