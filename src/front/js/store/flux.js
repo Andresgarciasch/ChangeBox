@@ -66,6 +66,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
     },
+    checkUser: async (data) => {
+      console.log(data);
+      const response = await fetch(
+        `${process.env.BACKEND_URL}/api/check-user`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    },
   };
 };
 

@@ -3,8 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # Datos de usuarios
-class User(db.Model):
-<<<<<<< HEAD
 
 @classmethod
     def create(cls, data):
@@ -18,9 +16,8 @@ class User(db.Model):
             print(error)
             return None
 
-=======
+class User(db.Model):
     # Registro
->>>>>>> develop
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
     lastname = db.Column(db.String(120), unique=True, nullable=False)

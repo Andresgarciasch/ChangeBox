@@ -25,7 +25,7 @@ export const LogIn = () => {
       email: email,
       password: password,
     };
-    if (await actions.registerUser(data)) {
+    if (await actions.checkUser(data)) {
       history.push("/private");
     } else {
       alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
