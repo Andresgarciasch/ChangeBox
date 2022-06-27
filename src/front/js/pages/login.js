@@ -48,42 +48,6 @@ export const LogIn = () => {
                     </p>
 
                     <form className="mx-1 mx-md-4">
-                      {/* <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Nombre Completo
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Apellidos
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                            onChange={(e) => setLastName(e.target.value)}
-                          />
-                        </div>
-                      </div> */}
-
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
