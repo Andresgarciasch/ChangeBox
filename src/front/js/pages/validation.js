@@ -6,17 +6,17 @@ import { Context } from "../store/appContext";
 export const Validation = () => {
   const { store, actions } = useContext(Context);
   const [name, setName] = useState("");
-  const [LastName, setLastName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [birthDay, setBirthDay] = useState("");
   const [identification, setIdentification] = useState("");
-  const [nationality, setnationality] = useState("");
+  const [nationality, setNationality] = useState("");
 
   const history = useHistory();
 
   const handle_Validation = async () => {
     let data = {
       name: name,
-      lastname: LastName,
+      lastname: lastName,
       birthday: birthDay,
       identification: identification,
       nationality: nationality,
@@ -51,13 +51,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Nombre Completo
+                            Nombre
                           </label>
                           <input
                             type="text"
                             id="form3Example1c"
                             className="form-control"
-                            onChange={(e) => setFullName(e.target.value)}
+                            onChange={(e) => setName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -69,13 +69,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Apellidos
+                            Apellido
                           </label>
                           <input
                             type="email"
                             id="form3Example3c"
                             className="form-control"
-                            onChange={(e) => setFullLastName(e.target.value)}
+                            onChange={(e) => setLastName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -87,13 +87,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            Cedula de identidad
+                            Fecha de nacimiento
                           </label>
                           <div className="d-flex">
                             <input
                               id="form3Example4c"
                               className="form-control"
-                              onChange={(e) => setId(e.target.value)}
+                              onChange={(e) => setBirthDay(e.target.value)}
                             />
                           </div>
                         </div>
@@ -106,13 +106,31 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Fecha de nacimiento
+                            Cedula de indentidad
                           </label>
                           <input
                             type="date"
                             id="form3Example3c"
                             className="form-control"
-                            onChange={(e) => setBirthDay(e.target.value)}
+                            onChange={(e) => setIdentification(e.target.value)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label
+                            className="form-label"
+                            htmlFor="form3Example3c"
+                          >
+                            Nacionalidad
+                          </label>
+                          <input
+                            type="text"
+                            id="form3Example3c"
+                            className="form-control"
+                            onChange={(e) => setNationality(e.target.value)}
                           />
                         </div>
                       </div>
@@ -123,10 +141,11 @@ export const Validation = () => {
                           className="btn btn-primary btn-lg"
                           onClick={handle_Validation}
                           disabled={
-                            !fullName.length > 0 ||
-                            !fullLastName.length > 0 ||
-                            !id.length > 0 ||
-                            !birthDay.length > 0
+                            !name.length > 0 ||
+                            !lastName.length > 0 ||
+                            !birthDay.length > 0 ||
+                            !identification.length > 0 ||
+                            !nationality.length > 0
                           }
                         >
                           Enviar

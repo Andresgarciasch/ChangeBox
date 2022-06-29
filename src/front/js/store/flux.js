@@ -66,16 +66,54 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
     },
-    // checkUser: async (data) => {
-    //   console.log(data);
-    //   const response = await fetch(
-    //     `${process.env.BACKEND_URL}/api/check-user`,
-    //     {
-    //       method: "POST",
-    //       body: JSON.stringify(data),
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
+
+    loginUser: async (data) => {
+      try {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        //   if (response.ok) {
+        //     return true;
+        //   }
+        //   return false;
+        // } catch (error) {
+        //   console.log(error);
+        // }
+
+        if (response.ok) {
+          let data = await response.json();
+          localStorage.setItem("token", data.token);
+          return true;
+        }
+        return false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    validationUser: async (id, data) => {
+      try {
+        const response = await fetch(
+          // `${process.env.BACKEND_URL}/validation-user/`,
+          `${process.env.BACKEND_URL}/validation-user/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "PUT",
+            body: JSON.stringify(data),
+          }
+        );
+        if (response.ok) {
+          // getActions().getEpisodes();
+          return true;
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   };
 };
