@@ -17,18 +17,6 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-<<<<<<< HEAD
-@api.route('/register-user', methods=['POST'])
-def handle_register():
-
-   data = request.json
-   print(data)
-   return jsonify(data)
-
-   
-
-
-=======
 
 @api.route('/register-user', methods=['POST'])
 def handle_register():
@@ -43,7 +31,27 @@ def handle_register():
         return jsonify(response_body), 201
     return jsonify({"message": "Ocurrio un error"}), 500    
 
-    # data = request.json
-    # print(data)
-    # return jsonify(data)
->>>>>>> develop
+
+# @api.route('/validation-user/', defaults={'id': None}, methods=['GET','POST','DELETE'])
+@api.route('/validation-user/<int:id>', methods=['PUT'])
+def handle_validation():
+
+    data = request.json
+    #AQUI FALTARIA UN CHINGO DE VALIDACIONES
+    userInfo = User.query.get(id)
+    userInfo.update(data['new_date'])
+    response_body = {
+        "message": "CAMBIO REALIZADO"
+    }
+    return jsonify(response_body), 200
+
+
+    elif request.method == 'PUT':
+        data = request.json
+        #AQUI FALTARIA UN CHINGO DE VALIDACIONES
+        episode = Episode.query.get(id)
+        episode.update(data['new_name','new_lastname','new_birthday','new_identification','new_nationality'])
+        response_body = {
+            "message": "CAMBIO SU VAINA CON EXITO SIIUUU"
+        }
+        return jsonify(response_body), 200

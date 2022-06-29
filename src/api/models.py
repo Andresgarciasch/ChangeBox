@@ -2,20 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
+
 # Datos de usuarios
-
-@classmethod
-    def create(cls, data):
-        try:
-            new_user = cls(**data)
-            db.session.add(new_user)
-            db.session.commit()
-            return new_user
-        except Exception as error:
-            db.session.rollback()
-            print(error)
-            return None
-
 class User(db.Model):
     # Registro
     id = db.Column(db.Integer, primary_key=True)
@@ -46,9 +35,6 @@ class User(db.Model):
     # ¿Tendría que añadir un registro de usuario cada vez que dicho usuario participa en una transacción?
     # User_historic = db.relationship('Transactionhistory', lazy = True, backref='user')
 
-    def __repr__(self):
-        return f'<User {self.email}>'
-
     # def create(self):
     #     try:
     #         db.session.add(self)
@@ -75,13 +61,14 @@ class User(db.Model):
     # Cómo actualiza los datos si se rechaza la verificación?
     # Qué datos podra actualizar?
 
-    # def update(self, new_name, new_lastname, new_username, new_nationality):
-    #     self.date = new_name
-    #     self.date = new_lastname
-    #     self.date = new_username    
-    #     self.date = new_nationality 
-    #     db.session.commit()
-    #     return True
+    def update(self, new_name, new_lastname, new_birthday, new_identification, new_nationality):
+        self.name = new_name
+        self.lastname = new_lastname
+        self.birthday = new_birthday
+        self.identification = new_identification     
+        self.nationality = new_nationality 
+        db.session.commit()
+        return True
 
     def serialize(self):
         return {
