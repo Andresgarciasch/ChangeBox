@@ -1,43 +1,37 @@
 import React, { useState, useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const SignUp = () => {
+export const LogIn = () => {
   const { store, actions } = useContext(Context);
-  const [name, setName] = useState("");
-  const [LastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showRepeat, setShowRepeat] = useState(false);
 
   const [password, setPassword] = useState("");
-  const [repeat, setRepeat] = useState("");
-  const [check, setCheck] = useState(false);
+
   const [errors, setErrors] = useState({
     userName: false,
     email: false,
     password: false,
-    repeat: false,
   });
 
   const history = useHistory();
 
   const handleSubmit = async () => {
     let data = {
-      name: name,
-      lastname: LastName,
-      username: userName,
       email: email,
       password: password,
     };
-    if (actions.registerUser(data)) {
+    if (await actions.loginUser(data)) {
       history.push("/private");
     } else {
-      alert("Algo salio mal intente de nuevo");
+      alert("CREDENCIALES INVALIDAS");
     }
   };
+
+  //   por modificar registerUser a logUser creando nuevo endpoint
 
   return (
     <section className="vh-100" style={{ backgroundColor: "#eee" }}>
@@ -49,46 +43,10 @@ export const SignUp = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Registro
+                      Ingreso
                     </p>
 
                     <form className="mx-1 mx-md-4">
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Nombre Completo
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Apellidos
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                            onChange={(e) => setLastName(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
@@ -157,47 +115,6 @@ export const SignUp = () => {
                         </div>
                       </div>
 
-                      {/* <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fa-solid fa-earth-americas"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Your ID Number
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                            onChange={(e) => setId(e.target.value)}
-                            onBlur={(e) => {
-                               let regex = /[VEve]-[0123456789]{7,8}/; //pendiente de revisar el limite de los caracteres de los regex y su funcionamiento general
-
-                              if (regex.test(id)) {
-                                setErrors({ ...errors, id: false });
-                              } else {
-                                setErrors({ ...errors, id: true });
-                              }
-                            }}
-                          />
-                          {errors.id && (
-                            <div className="text-warning">ID invalido</div>
-                          )}
-                        </div>
-                      </div> */}
-
-                      {/* <div className="d-flex flex-row align-items-center mb-4">
-                        <label className="form-label" htmlFor="form3Example4c">
-                          Fecha de Nacimiento
-                          <input
-                            type="date"
-                            className="form-control"
-                            onChange={(e) => setBirthday(e.target.value)}
-                          />
-                        </label>
-                      </div> */}
-
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
@@ -245,90 +162,23 @@ export const SignUp = () => {
                         </div>
                       </div>
 
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example4cd"
-                          >
-                            Repetir Contraseña
-                          </label>
-                          <div className="d-flex">
-                            <input
-                              type={showRepeat ? "text" : "password"}
-                              id="form3Example4cd"
-                              className="form-control"
-                              onChange={(e) => setRepeat(e.target.value)}
-                              onBlur={(e) => {
-                                if (repeat !== password) {
-                                  setErrors({ ...errors, repeat: true });
-                                } else {
-                                  setErrors({ ...errors, repeat: false });
-                                }
-                              }}
-                            />
-
-                            <button
-                              className={
-                                showRepeat
-                                  ? "fa fa-eye-slash"
-                                  : "fa fa-eye password-icon"
-                              }
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setShowRepeat(!showRepeat);
-                              }}
-                            ></button>
-                          </div>
-
-                          {errors.repeat && (
-                            <div className="text-warning">
-                              contraseña diferente
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="form-check d-flex justify-content-center mb-5">
-                        <input
-                          className="form-check-input me-2"
-                          type="checkbox"
-                          value={check}
-                          id="form2Example3c"
-                          onChange={(e) => setCheck(!check)}
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="form2Example3"
-                        >
-                          Acepto los terminos dentro de{" "}
-                          <a href="#!">Terminos de servicio</a>
-                        </label>
-                      </div>
-
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
                           onClick={handleSubmit}
-                          disabled={
-                            errors.email ||
-                            errors.password ||
-                            errors.repeat ||
-                            !check ||
-                            !name.length > 0 ||
-                            !email.length > 0 ||
-                            !password.length > 0 ||
-                            !repeat.length > 0
-                          }
+                          // disabled={
+                          //   errors.email ||
+                          //   errors.username ||
+                          //   errors.password ||
+                          //   !check ||
+                          //   !email.length > 0 ||
+                          //   !password.length > 0
+                          // }
                         >
-                          Registrar
+                          Ingresar
                         </button>
                       </div>
-                      <Link className="m-auto" to={"/login"}>
-                        Si ya tienes cuenta, inicia sesion
-                      </Link>
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
