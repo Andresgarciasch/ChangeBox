@@ -28,45 +28,20 @@ def handle_register():
     if user is not None: 
 
         response_body = {
-            "message": "Creado el usuario"
+            "message": "Creado el usuario",
+            "user": user.serialize()
         }
         return jsonify(response_body), 201
     return jsonify({"message": "Ocurrio un error"}), 500    
 
-# Guia: https://github.com/Andresgarciasch/jwt-authentication/blob/main/src/api/routes.py
-# @api.route('/sign-up', methods=['POST'])
-# def handle_register():
 
-#     data = request.data
-#     data_decode = json.loads(data)
-#     newUser = User(**data_decode)
-#     user = User.query.filter_by(email=newUser.email,password=newUser.password).first()
-#     if user is None:
-#         db.session.add(newUser)
-#         db.session.commit()
-#         access_token = create_access_token(identity=newUser.id)
-#         response_body = {
-#             "message": "Usuario creado con exito",
-#             "token":access_token
-#         }
-#         return jsonify(response_body), 200
-#     else :
-#         response_body = {
-#             "message": "Usuario ya existe"
-#         }
-#         return jsonify(response_body), 400
-
-
-
-
-# @api.route('/validation-user/', defaults={'id': None}, methods=['GET','POST','DELETE'])
-@api.route('/validation-user/<int:id>', methods=['PUT'])
+@api.route('/validation-user/', methods=['PUT'])
 def handle_validation():
 
     data = request.json
     #AQUI FALTARIA UN CHINGO DE VALIDACIONES
-    userInfo = User.query.get(id)
-    userInfo.update(data['new_name','new_lastname','new_birthday','new_identification','new_nationality'])
+    userInfo = User.query.get(data["id"])
+    userInfo.update(**data["data"])
     response_body = {
         "message": "CAMBIO REALIZADO"
     }

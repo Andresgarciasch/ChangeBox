@@ -13,7 +13,7 @@ export const Validation = () => {
 
   const history = useHistory();
 
-  const handle_Validation = async () => {
+  const handleSubmit = async () => {
     let data = {
       name: name,
       lastname: lastName,
@@ -21,7 +21,8 @@ export const Validation = () => {
       identification: identification,
       nationality: nationality,
     };
-    if (await actions.validationUser(data)) {
+    // if (await actions.validationUser(data)) {
+    if (actions.validationUser(data)) {
       history.push("/private");
     } else {
       alert("DATOS PARA VERIFICACION ENVIADOS");
@@ -91,6 +92,7 @@ export const Validation = () => {
                           </label>
                           <div className="d-flex">
                             <input
+                              type="date"
                               id="form3Example4c"
                               className="form-control"
                               onChange={(e) => setBirthDay(e.target.value)}
@@ -109,7 +111,6 @@ export const Validation = () => {
                             Cedula de indentidad
                           </label>
                           <input
-                            type="date"
                             id="form3Example3c"
                             className="form-control"
                             onChange={(e) => setIdentification(e.target.value)}
@@ -139,7 +140,7 @@ export const Validation = () => {
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
-                          onClick={handle_Validation}
+                          onClick={handleSubmit}
                           disabled={
                             !name.length > 0 ||
                             !lastName.length > 0 ||

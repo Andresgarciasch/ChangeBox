@@ -17,9 +17,9 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
+      // exampleFunction: () => {
+      //   getActions().changeColor(0, "green");
+      // },
 
       getMessage: () => {
         // fetching data from the backend
@@ -58,6 +58,10 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
 
           if (response.ok) {
+            const body = await response.json();
+            setStore({
+              currentuser: body.user,
+            });
             return true;
           }
           return false;
@@ -65,55 +69,59 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
-    },
 
-    loginUser: async (data) => {
-      try {
-        const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" },
-        });
-
-        //   if (response.ok) {
-        //     return true;
-        //   }
-        //   return false;
-        // } catch (error) {
-        //   console.log(error);
-        // }
-
-        if (response.ok) {
-          let data = await response.json();
-          localStorage.setItem("token", data.token);
-          return true;
-        }
-        return false;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
-    validationUser: async (id, data) => {
-      try {
-        const response = await fetch(
-          // `${process.env.BACKEND_URL}/validation-user/`,
-          `${process.env.BACKEND_URL}/validation-user/${id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "PUT",
-            body: JSON.stringify(data),
+      validationUser: async (data) => {
+        // validationUser: async (id, data) => {
+        try {
+          const response = await fetch(
+            // `${process.env.BACKEND_URL}/validation-user/${id}`,
+            `${process.env.BACKEND_URL}/api/validation-user/`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              method: "PUT",
+              body: JSON.stringify({
+                id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+          if (response.ok) {
+            // getActions().getEpisodes();
+            return true;
           }
-        );
-        if (response.ok) {
-          // getActions().getEpisodes();
-          return true;
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
-      }
+      },
+
+      loginUser: async (data) => {
+        try {
+          const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          //   if (response.ok) {
+          //     return true;
+          //   }
+          //   return false;
+          // } catch (error) {
+          //   console.log(error);
+          // }
+
+          if (response.ok) {
+            let data = await response.json();
+            localStorage.setItem("token", data.token);
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
     },
   };
 };
