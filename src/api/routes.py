@@ -4,6 +4,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
+# from flask_cors import CORS, cross_origin
+# from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
 api = Blueprint('api', __name__)
 
@@ -26,32 +28,48 @@ def handle_register():
     if user is not None: 
 
         response_body = {
-            "message": "Creado el usuario"
+            "message": "Creado el usuario",
+            "user": user.serialize()
         }
         return jsonify(response_body), 201
     return jsonify({"message": "Ocurrio un error"}), 500    
 
 
-# @api.route('/validation-user/', defaults={'id': None}, methods=['GET','POST','DELETE'])
-@api.route('/validation-user/<int:id>', methods=['PUT'])
+@api.route('/validation-user/', methods=['PUT'])
 def handle_validation():
 
     data = request.json
     #AQUI FALTARIA UN CHINGO DE VALIDACIONES
-    userInfo = User.query.get(id)
-    userInfo.update(data['new_date'])
+    userInfo = User.query.get(data["id"])
+    userInfo.update(**data["data"])
     response_body = {
         "message": "CAMBIO REALIZADO"
     }
     return jsonify(response_body), 200
 
 
-    elif request.method == 'PUT':
-        data = request.json
-        #AQUI FALTARIA UN CHINGO DE VALIDACIONES
-        episode = Episode.query.get(id)
-        episode.update(data['new_name','new_lastname','new_birthday','new_identification','new_nationality'])
+@api.route('/login', methods=['POST'])
+def handle_login():
+
+    data = request.data
+    data_decode = json.loads(data)
+    user = User.query.filter_by(**data_decode).first()
+    if user is None:  
         response_body = {
-            "message": "CAMBIO SU VAINA CON EXITO SIIUUU"
+            "message": "Credenciales Inválidas"
+        }
+        return jsonify(response_body), 400
+    else :
+        access_token = create_access_token(identity=user.id)
+        response_body = {
+            "message": "La logacion con exito",
+            "token": access_token
         }
         return jsonify(response_body), 200
+
+
+# @api.route("/private",methods=["POST"])
+# @jwt_required()
+# def handle_private():
+#     current_user = get_jwt_identity()
+#     return jsonify(current_user), 200

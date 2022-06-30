@@ -21,14 +21,13 @@ export const LogIn = () => {
 
   const handleSubmit = async () => {
     let data = {
-      username: userName,
       email: email,
       password: password,
     };
-    if (await actions.checkUser(data)) {
+    if (await actions.loginUser(data)) {
       history.push("/private");
     } else {
-      alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
+      alert("CREDENCIALES INVALIDAS");
     }
   };
 

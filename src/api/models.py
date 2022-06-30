@@ -61,12 +61,12 @@ class User(db.Model):
     # Cómo actualiza los datos si se rechaza la verificación?
     # Qué datos podra actualizar?
 
-    def update(self, new_name, new_lastname, new_birthday, new_identification, new_nationality):
-        self.name = new_name
-        self.lastname = new_lastname
-        self.birthday = new_birthday
-        self.identification = new_identification     
-        self.nationality = new_nationality 
+    def update(self, name, lastname, birthday, identification, nationality):
+        self.name = name
+        self.lastname = lastname
+        self.birthday = birthday
+        self.identification = identification     
+        self.nationality = nationality 
         db.session.commit()
         return True
 
