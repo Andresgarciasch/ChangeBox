@@ -48,9 +48,20 @@ export const SignUp = () => {
               <div className="card-body p-md-5">
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Registro
-                    </p>
+                    <div className="d-flex justify-content-center">
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                        Registro
+                      </p>
+
+                      <button
+                        className="fa-solid fa-question"
+                        onClick={() =>
+                          alert(
+                            "Nombre de usuario: 1. solo puede contener caracteres alfanumericos, barra baja y puntos 2. el punto y la barra baja no pueden ir ni al comienzo ni al final ni juntos 3. minimo 8 caracteres y maximo 20        Contraseña: 1. al menos una mayuscula y una minuscula 2. al menos un caracter numerico y un caracter especial 3. minimo de 8 caracteres"
+                          )
+                        }
+                      ></button>
+                    </div>
 
                     <form className="mx-1 mx-md-4">
                       <div className="d-flex flex-row align-items-center mb-4">
@@ -185,17 +196,6 @@ export const SignUp = () => {
                             <div className="text-warning">ID invalido</div>
                           )}
                         </div>
-                      </div> */}
-
-                      {/* <div className="d-flex flex-row align-items-center mb-4">
-                        <label className="form-label" htmlFor="form3Example4c">
-                          Fecha de Nacimiento
-                          <input
-                            type="date"
-                            className="form-control"
-                            onChange={(e) => setBirthday(e.target.value)}
-                          />
-                        </label>
                       </div> */}
 
                       <div className="d-flex flex-row align-items-center mb-4">

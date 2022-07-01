@@ -5,27 +5,24 @@ import { Context } from "../store/appContext";
 
 export const Validation = () => {
   const { store, actions } = useContext(Context);
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [fullLastName, setFullLastName] = useState("");
+  const [id, setId] = useState("");
   const [birthDay, setBirthDay] = useState("");
-  const [identification, setIdentification] = useState("");
-  const [nationality, setNationality] = useState("");
 
   const history = useHistory();
 
   const handleSubmit = async () => {
     let data = {
-      name: name,
-      lastname: lastName,
-      birthday: birthDay,
-      identification: identification,
-      nationality: nationality,
+      fullname: fullname,
+      fulllastname: fulllastname,
+      birthday: birthday,
+      Id: Id,
     };
-    // if (await actions.validationUser(data)) {
-    if (actions.validationUser(data)) {
+    if (await actions.userValidation(data)) {
       history.push("/private");
     } else {
-      alert("DATOS PARA VERIFICACION ENVIADOS");
+      alert("EL USUARIO YA ESTA CREADO INTENTE DE NUEVO");
     }
   };
 
@@ -52,13 +49,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Nombre
+                            Nombre Completo
                           </label>
                           <input
                             type="text"
                             id="form3Example1c"
                             className="form-control"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => setFullName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -70,13 +67,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Apellido
+                            Apellidos
                           </label>
                           <input
                             type="email"
                             id="form3Example3c"
                             className="form-control"
-                            onChange={(e) => setLastName(e.target.value)}
+                            onChange={(e) => setFullLastName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -88,14 +85,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            Fecha de nacimiento
+                            Cedula de identidad
                           </label>
                           <div className="d-flex">
                             <input
-                              type="date"
                               id="form3Example4c"
                               className="form-control"
-                              onChange={(e) => setBirthDay(e.target.value)}
+                              onChange={(e) => setId(e.target.value)}
                             />
                           </div>
                         </div>
@@ -108,30 +104,13 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Cedula de indentidad
+                            Fecha de nacimiento
                           </label>
                           <input
+                            type="date"
                             id="form3Example3c"
                             className="form-control"
-                            onChange={(e) => setIdentification(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                        <div className="form-outline flex-fill mb-0">
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example3c"
-                          >
-                            Nacionalidad
-                          </label>
-                          <input
-                            type="text"
-                            id="form3Example3c"
-                            className="form-control"
-                            onChange={(e) => setNationality(e.target.value)}
+                            onChange={(e) => setBirthDay(e.target.value)}
                           />
                         </div>
                       </div>
@@ -142,11 +121,10 @@ export const Validation = () => {
                           className="btn btn-primary btn-lg"
                           onClick={handleSubmit}
                           disabled={
-                            !name.length > 0 ||
-                            !lastName.length > 0 ||
-                            !birthDay.length > 0 ||
-                            !identification.length > 0 ||
-                            !nationality.length > 0
+                            !fullName.length > 0 ||
+                            !fullLastName.length > 0 ||
+                            !id.length > 0 ||
+                            !birthDay.length > 0
                           }
                         >
                           Enviar

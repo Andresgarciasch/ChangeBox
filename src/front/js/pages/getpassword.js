@@ -62,11 +62,6 @@ export const GetPassword = () => {
                             className="form-control"
                             onChange={(e) => setUserName(e.target.value)}
                           />
-                          {errors.userName && (
-                            <div className="text-warning">
-                              Nombre de Usuario Invalido
-                            </div>
-                          )}
                         </div>
                       </div>
 
@@ -84,19 +79,7 @@ export const GetPassword = () => {
                             id="form3Example3c"
                             className="form-control"
                             onChange={(e) => setEmail(e.target.value)}
-                            onBlur={(e) => {
-                              let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-                              if (regex.test(email)) {
-                                setErrors({ ...errors, email: false });
-                              } else {
-                                setErrors({ ...errors, email: true });
-                              }
-                            }}
-                          />
-                          {errors.email && (
-                            <div className="text-warning">Correo Invalido</div>
-                          )}
+                          ></input>
                         </div>
                       </div>
 
@@ -107,7 +90,7 @@ export const GetPassword = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            Contraseña
+                            Contraseña Nueva
                           </label>
                           <div className="d-flex">
                             <input
@@ -161,7 +144,7 @@ export const GetPassword = () => {
                           //   !password.length > 0
                           // }
                         >
-                          Ingresar
+                          Cambiar
                         </button>
                       </div>
                     </form>

@@ -8,15 +8,15 @@ db = SQLAlchemy()
 class User(db.Model):
     # Registro
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    lastname = db.Column(db.String(120), unique=True, nullable=False)
+    name = db.Column(db.String(120), unique=False, nullable=False)
+    lastname = db.Column(db.String(120), unique=False, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
     # Verificación
     birthday = db.Column(db.DateTime, unique=False, nullable=True)
     identification = db.Column(db.String(120), unique=True, nullable=True)
-    nationality = db.Column(db.String(120), unique=True, nullable=True)
+    nationality = db.Column(db.String(120), unique=False, nullable=True)
     # ¿Cómo se añaden los archivos adjuntos?
     # attached_file = db.Column(db.XXXXXX, unique=False, nullable=False)
     # Subir imagen al backend -> Acceder por ruta del backend
