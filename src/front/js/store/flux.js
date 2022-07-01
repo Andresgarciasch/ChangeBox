@@ -98,26 +98,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       loginUser: async (data) => {
         try {
-          const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
             method: "POST",
             body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" },
           });
-
-          //   if (response.ok) {
-          //     return true;
-          //   }
-          //   return false;
-          // } catch (error) {
-          //   console.log(error);
-          // }
-
           if (response.ok) {
             let data = await response.json();
             localStorage.setItem("token", data.token);
             return true;
-          }
-          return false;
+          } else return false;
         } catch (error) {
           console.log(error);
         }

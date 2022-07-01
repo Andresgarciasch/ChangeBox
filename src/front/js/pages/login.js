@@ -12,7 +12,7 @@ export const LogIn = () => {
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({
-    userName: false,
+    // username: false,
     email: false,
     password: false,
   });
