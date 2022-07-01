@@ -3,16 +3,16 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const LogIn = () => {
+export const GetPassword = () => {
   const { store, actions } = useContext(Context);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const [errors, setErrors] = useState({
-    // username: false,
+    userName: false,
     email: false,
     password: false,
   });
@@ -43,7 +43,7 @@ export const LogIn = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Ingreso
+                      Cambiar contraseña
                     </p>
 
                     <form className="mx-1 mx-md-4">
@@ -54,7 +54,7 @@ export const LogIn = () => {
                             className="form-label"
                             htmlFor="form3Example1c"
                           >
-                            Nombre de Usuario o correo electronico
+                            Nombre de Usuario
                           </label>
                           <input
                             type="text"
@@ -62,6 +62,41 @@ export const LogIn = () => {
                             className="form-control"
                             onChange={(e) => setUserName(e.target.value)}
                           />
+                          {errors.userName && (
+                            <div className="text-warning">
+                              Nombre de Usuario Invalido
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label
+                            className="form-label"
+                            htmlFor="form3Example3c"
+                          >
+                            Correo Electrónico
+                          </label>
+                          <input
+                            type="email"
+                            id="form3Example3c"
+                            className="form-control"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onBlur={(e) => {
+                              let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+                              if (regex.test(email)) {
+                                setErrors({ ...errors, email: false });
+                              } else {
+                                setErrors({ ...errors, email: true });
+                              }
+                            }}
+                          />
+                          {errors.email && (
+                            <div className="text-warning">Correo Invalido</div>
+                          )}
                         </div>
                       </div>
 
@@ -117,16 +152,18 @@ export const LogIn = () => {
                           type="button"
                           className="btn btn-primary btn-lg"
                           onClick={handleSubmit}
-                          disabled={
-                            !userName.length > 0 || !password.length > 0
-                          }
+                          // disabled={
+                          //   errors.email ||
+                          //   errors.username ||
+                          //   errors.password ||
+                          //   !check ||
+                          //   !email.length > 0 ||
+                          //   !password.length > 0
+                          // }
                         >
                           Ingresar
                         </button>
                       </div>
-                      <Link className="m-auto" to={"/getpassword"}>
-                        Olvidaste tu contraseña
-                      </Link>
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
