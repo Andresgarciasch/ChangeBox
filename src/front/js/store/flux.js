@@ -59,9 +59,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (response.ok) {
             const body = await response.json();
-            setStore({
-              currentuser: body.user,
-            });
+            // setStore({
+            //   currentuser: body.token,
+            // });
+            localStorage.setItem("token", body.token);
             return true;
           }
           return false;
@@ -79,10 +80,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             {
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
               method: "PUT",
               body: JSON.stringify({
-                id: getStore().currentuser.id,
+                // id: getStore().currentuser.id,
                 data: data,
               }),
             }
@@ -106,8 +108,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             body: JSON.stringify(data),
           });
           if (response.ok) {
-            let data = await response.json();
-            localStorage.setItem("token", data.token);
+            const body = await response.json();
+            localStorage.setItem("token", body.token);
             return true;
           } else return false;
         } catch (error) {
