@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 export const Footer = () => (
-  <footer className="footer fixed-bottom bg-primary py-3 text-center">
-    {/* <div className="d-flex  bg-primary justify-content-center">
+  <footer className=" bg-primary py-3 text-center">
+    <div className="d-flex  bg-primary justify-content-center">
       <div className="one mr-5">
         <h4>Quienes somos</h4>
         <h6>Andres Garcia</h6>
@@ -25,6 +25,6 @@ export const Footer = () => (
         <h6>+58 412-401 7284</h6>
         <h6>andres_28garcia@outlook.es</h6>
       </div>
-    </div> */}
+    </div>
   </footer>
 );
