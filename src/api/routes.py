@@ -70,6 +70,32 @@ def handle_login():
         return jsonify(response_body), 200
 
 
+
+
+@api.route('/buy-board', methods=['POST','PUT'])
+def handle_buy():
+    if request.method == 'POST':
+
+        data = request.json
+        buypublications = Buypublications.create(data)
+        response_body = {
+            "message": "{Publicacion creada con exito}",
+        }
+        return jsonify(response_body), 201
+
+    elif request.method == 'PUT':
+
+        data = request.json
+        buypublications = Buypublications.query.get(id)
+        buypublications.update(**data["data"])
+        response_body = {
+            "message": "{Cambios realizados en la publicacion}"
+        }
+        return jsonify(response_body), 200
+
+
+
+
 @api.route("/private",methods=["POST"])
 @jwt_required()
 def handle_private():
