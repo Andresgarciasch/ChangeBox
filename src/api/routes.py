@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Buypublications
 from api.utils import generate_sitemap, APIException
 # from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
@@ -71,22 +71,30 @@ def handle_login():
 
 
 
-
 @api.route('/buy-board', methods=['POST','PUT'])
+@jwt_required()
 def handle_buy():
+
+    data = request.json
+    # print(data)
+
     if request.method == 'POST':
 
-        data = request.json
+        data["user_id_pub"] = get_jwt_identity()
         buypublications = Buypublications.create(data)
+        print(buypublications)
         response_body = {
             "message": "{Publicacion creada con exito}",
         }
         return jsonify(response_body), 201
 
     elif request.method == 'PUT':
+        
+        # El objeto a recibir
+        # {id: XXXX,
+        # data: {datos base de datos}}
 
-        data = request.json
-        buypublications = Buypublications.query.get(id)
+        buypublications = Buypublications.query.get(data["id"])
         buypublications.update(**data["data"])
         response_body = {
             "message": "{Cambios realizados en la publicacion}"

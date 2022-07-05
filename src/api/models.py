@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -27,7 +28,7 @@ class User(db.Model):
     score = db.Column(db.Integer, unique=False, nullable=True)
     reputation = db.Column(db.Float, unique=False, nullable=True)
     # Añadir relación con "compra" (dos usuarios por transacción)
-    # buy_user = db.relationship('Buypublications', lazy = True, backref='user')
+    buy_user = db.relationship('Buypublications', lazy = True, backref='user')
     # Añadir relación con "venta" (dos usuarios por transacción)
     # sell_user = db.relationship('Sellpublications', lazy = True, backref='user')
     # Añadir relación con "historial de transacciones" (dos usuarios por transacción - relación varios a uno)
@@ -81,23 +82,23 @@ class User(db.Model):
 
 
 
-# # Transacción de compra
-# class Buypublications(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     date = db.Column(db.DateTime, unique=False, nullable=False)
-#     exchange_rate = db.Column(db.Float, unique=True, nullable=False)
-#     balance = db.Column(db.Float, unique=True, nullable=False)
-#     message = db.Column(db.String(280), unique=True, nullable=False)
-#     # preferred_banks puede provenir de una lista desplegable?
-#     preferred_banks = db.Column(db.String(280), unique=True, nullable=False)
-#     # 4 status = [open, trading, filled, canceled]
-#     status = db.Column(db.String(120), unique=True, nullable=False)
-#     # Añadir relación con usuario que compra/publica (Varios a uno)
-#     user_id_pub = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     # Añadir relación con usuario que vende/se une (Varios a uno)
-#     user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
-#     # Añadir relación con historial de operaciones
-#     buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
+# Transacción de compra
+class Buypublications(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow, unique=False, nullable=False)
+    exchange_rate = db.Column(db.Float, unique=False, nullable=False)
+    balance = db.Column(db.Float, unique=False, nullable=False)
+    message = db.Column(db.String(280), unique=False, nullable=False)
+    # preferred_banks puede provenir de una lista desplegable?
+    preferred_banks = db.Column(db.String(280), unique=False, nullable=False)
+    # # 4 status = [open, trading, filled, canceled]
+    # status = db.Column(db.String(120), unique=False, nullable=False)
+    # Añadir relación con usuario que compra/publica (Varios a uno)
+    user_id_pub = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # # Añadir relación con usuario que vende/se une (Varios a uno)
+    # user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # # Añadir relación con historial de operaciones
+    # buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
 
     # def create(self):
     #     try:
@@ -109,28 +110,41 @@ class User(db.Model):
     #         print('An error has ocurred')
     #         return False
 
-#     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
-#         self.exchange_rate = new_exchange_rate
-#         self.balance = new_balance
-#         self.message = new_message
-#         self.preferred_banks = new_preferred_banks
-#         db.session.commit()
-#         return True
+    @classmethod
+    def create(cls, data):
+        try:
+            new_buy_publication = cls(**data)
+            db.session.add(new_buy_publication)
+            db.session.commit()
+            return new_buy_publication.serialize()
+        except Exception as error:
+            db.session.rollback()
+            print(error)
+            return None
 
-#     # Más que borrar, se debería ocultar de la pizarra pero el registro debe quedar en base de datos
-#     # Al cancelar la publicación cambia a estatus cancelado
-#     # def delete(self):
-#     #     db.session.delete(self)
-#     #     db.session.commit()
-#     #     return True
+    def update(self, exchange_rate, balance, message, preferred_banks):
+        self.exchange_rate = exchange_rate
+        self.balance = balance
+        self.message = message
+        self.preferred_banks = preferred_banks
+        db.session.commit()
+        return True
 
-#     def serialize(self):
-#         return {
-#             "id": self.id,
-#             "date": self.date,
-#             "exchange_rate": self.exchange_rate,
-#             "balance": self.balance
-#         }
+    # Más que borrar, se debería ocultar de la pizarra pero el registro debe quedar en base de datos
+    # Al cancelar la publicación cambia a estatus cancelado
+    # def delete(self):
+    #     db.session.delete(self)
+    #     db.session.commit()
+    #     return True
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "date": self.date,
+            "exchange_rate": self.exchange_rate,
+            "balance": self.balance,
+            "message": self.balance
+        }
 
 
 

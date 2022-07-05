@@ -117,7 +117,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      buyPublication: async (data) => {
+      createBuyPublication: async (data) => {
         try {
           const response = await fetch(
             `${process.env.BACKEND_URL}/api/buy-board`,
@@ -127,10 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
               method: "POST",
-              body: JSON.stringify({
-                // id: getStore().currentuser.id,
-                data: data,
-              }),
+              body: JSON.stringify(data),
             }
           );
 

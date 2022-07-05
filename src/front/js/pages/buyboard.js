@@ -1,4 +1,6 @@
 import React, { useState, useContext } from "react";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
@@ -18,13 +20,31 @@ export const BuyBoard = () => {
   const [balance, setBalance] = useState(false);
   const [message, setMessage] = useState(false);
   const [preferredBanks, setPreferredBanks] = useState(false);
-
   const [open, setOpen] = React.useState(false);
+
+  const history = useHistory();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handlePublicationCreation = async () => {
+    let data = {
+      // date = Como genero la fecha de manera automatica?
+      exchange_rate: exchangeRate,
+      balance: balance,
+      message: message,
+      preferred_banks: preferredBanks,
+    };
+    if (actions.createBuyPublication(data)) {
+      history.push("/private");
+    } else {
+      alert("?????");
+    }
   };
 
   return (
@@ -44,7 +64,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Tasa de cambio"
-              type="exchange_rate"
+              type="float"
               fullWidth
               variant="standard"
               onChange={(e) => setExchangeRate(e.target.value)}
@@ -54,7 +74,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Saldo"
-              type="balance"
+              type="float"
               fullWidth
               variant="standard"
               onChange={(e) => setBalance(e.target.value)}
@@ -64,7 +84,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Mensaje"
-              type="message"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setMessage(e.target.value)}
@@ -74,7 +94,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Bancos preferidos"
-              type="preferred_banks"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setPreferredBanks(e.target.value)}
@@ -82,24 +102,11 @@ export const BuyBoard = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancelar</Button>
-            <Button onClick={handleClose}>Publicar</Button>
+            <Button onClick={handlePublicationCreation}>Publicar</Button>
           </DialogActions>
         </Dialog>
       </div>
-      <h1>Hello Rigo!!</h1>
-      <p>
-        <img src={rigoImageUrl} />
-      </p>
-      <div className="alert alert-info">
-        {store.message ||
-          "Loading message from the backend (make sure your python backend is running)..."}
-      </div>
-      <p>
-        This boilerplate comes with lots of documentation:{" "}
-        <a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-          Read documentation
-        </a>
-      </p>
+      <div></div>
     </div>
   );
 };
