@@ -114,6 +114,16 @@ class User(db.Model):
 #     # Añadir relación con historial de operaciones
 #     buy_op = db.relationship('Transactionhistory', lazy = True, backref='buypublications')
 
+    # def create(self):
+    #     try:
+    #         db.session.add(self)
+    #         db.session.commit()
+    #         return True
+    #     except:
+    #         db.session.rollback()
+    #         print('An error has ocurred')
+    #         return False
+
 #     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
 #         self.exchange_rate = new_exchange_rate
 #         self.balance = new_balance
@@ -157,6 +167,16 @@ class User(db.Model):
 #     user_id_join = db.Column(db.Integer, db.ForeignKey('user.id'))
 #     # Añadir relación con historial de operaciones
 #     sell_op = db.relationship('Transactionhistory', lazy = True, backref='sellpublications')
+
+    # def create(self):
+    #     try:
+    #         db.session.add(self)
+    #         db.session.commit()
+    #         return True
+    #     except:
+    #         db.session.rollback()
+    #         print('An error has ocurred')
+    #         return False
 
 #     def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
 #         self.exchange_rate = new_exchange_rate
