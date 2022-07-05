@@ -71,6 +71,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      loginUser: async (data) => {
+        try {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(data),
+          });
+          if (response.ok) {
+            const body = await response.json();
+            localStorage.setItem("token", body.token);
+            return true;
+          } else return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
       validationUser: async (data) => {
         // validationUser: async (id, data) => {
         try {
@@ -98,20 +117,55 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      loginUser: async (data) => {
+      buyPublication: async (data) => {
         try {
-          let response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify(data),
-          });
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/buy-board`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "POST",
+              body: JSON.stringify({
+                // id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+
           if (response.ok) {
             const body = await response.json();
-            localStorage.setItem("token", body.token);
             return true;
-          } else return false;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      changeBuyPublication: async (id, data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/buy-board/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "PUT",
+              body: JSON.stringify({
+                // id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            return true;
+          }
+          return false;
         } catch (error) {
           console.log(error);
         }
