@@ -7,7 +7,7 @@ export const LogIn = () => {
   const { store, actions } = useContext(Context);
   const [userName, setUserName] = useState("");
   // Se comenta setemail porque estamos pasando el username en la funcion "handleSubmit"
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
 
