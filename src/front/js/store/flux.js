@@ -45,6 +45,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ demo: demo });
       },
 
+      // Registro
+
       registerUser: async (data) => {
         console.log(data);
         try {
@@ -71,6 +73,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      // Login
+
       loginUser: async (data) => {
         try {
           let response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
@@ -89,6 +93,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
+      // Verificacion del usuario
 
       validationUser: async (data) => {
         // validationUser: async (id, data) => {
@@ -116,6 +122,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
+      // Publicaciones de compra
 
       createBuyPublication: async (data) => {
         try {
@@ -145,6 +153,59 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const response = await fetch(
             `${process.env.BACKEND_URL}/api/buy-board/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "PUT",
+              body: JSON.stringify({
+                // id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      // Publicaciones de venta
+
+      createSellPublication: async (data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/sell-board`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "POST",
+              body: JSON.stringify(data),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      changeSellPublication: async (id, data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/sell-board/${id}`,
             {
               headers: {
                 "Content-Type": "application/json",

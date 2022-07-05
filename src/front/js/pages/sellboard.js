@@ -14,7 +14,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export const BuyBoard = () => {
+export const SellBoard = () => {
   const { store, actions } = useContext(Context);
   const [exchangeRate, setExchangeRate] = useState(false);
   const [balance, setBalance] = useState(false);
@@ -40,8 +40,8 @@ export const BuyBoard = () => {
       message: message,
       preferred_banks: preferredBanks,
     };
-    if (actions.createBuyPublication(data)) {
-      history.push("/buy-board");
+    if (actions.createSellPublication(data)) {
+      history.push("/sell-board");
     } else {
       alert("?????");
     }
@@ -51,13 +51,13 @@ export const BuyBoard = () => {
     <div className="text-center mt-5">
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
-          Publicar Compra
+          Publicar Venta
         </Button>
         <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Comprar</DialogTitle>
+          <DialogTitle>Vender</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Completa el formulario para publicar tu operacion de compra
+              Completa el formulario para publicar tu operacion de venta
             </DialogContentText>
             <TextField
               autoFocus

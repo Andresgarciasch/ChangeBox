@@ -169,7 +169,7 @@ export const Validation = () => {
       </div>
       {/* Si el token es indefinido, se redirige a la pagina principal */}
       {localStorage.getItem("token") == undefined && (
-        <Redirect to={"/"}></Redirect>
+        <Redirect to={"/validation"}></Redirect>
       )}
     </section>
   );

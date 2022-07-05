@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Buypublications
+from api.models import db, User, Buypublications, Sellpublications
 from api.utils import generate_sitemap, APIException
 # from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
@@ -19,6 +19,8 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+# Registro
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 @api.route('/register-user', methods=['POST'])
 def handle_register():
@@ -34,6 +36,8 @@ def handle_register():
         return jsonify(response_body), 201
     return jsonify({"message": "Ocurrio un error"}), 500    
 
+# Verificacion
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 @api.route('/validation-user/', methods=['PUT'])
 @jwt_required()
@@ -49,6 +53,8 @@ def handle_validation():
     }
     return jsonify(response_body), 200
 
+# Login
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 @api.route('/login', methods=['POST'])
 def handle_login():
@@ -69,7 +75,8 @@ def handle_login():
         }
         return jsonify(response_body), 200
 
-
+# Publicaciones de compra
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 @api.route('/buy-board', methods=['POST','PUT'])
 @jwt_required()
@@ -84,7 +91,7 @@ def handle_buy():
         buypublications = Buypublications.create(data)
         print(buypublications)
         response_body = {
-            "message": "{Publicacion creada con exito}",
+            "message": "{Publicacion de compra creada con exito}",
         }
         return jsonify(response_body), 201
 
@@ -97,12 +104,45 @@ def handle_buy():
         buypublications = Buypublications.query.get(data["id"])
         buypublications.update(**data["data"])
         response_body = {
-            "message": "{Cambios realizados en la publicacion}"
+            "message": "{Cambios realizados en la publicacion de compra}"
         }
         return jsonify(response_body), 200
 
+# Publicaciones de venta
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
+@api.route('/sell-board', methods=['POST','PUT'])
+@jwt_required()
+def handle_sell():
 
+    data = request.json
+    # print(data)
+
+    if request.method == 'POST':
+
+        data["user_id_pub"] = get_jwt_identity()
+        sellpublications = Sellpublications.create(data)
+        print(sellpublications)
+        response_body = {
+            "message": "{Publicacion de venta creada con exito}",
+        }
+        return jsonify(response_body), 201
+
+    elif request.method == 'PUT':
+        
+        # El objeto a recibir
+        # {id: XXXX,
+        # data: {datos base de datos}}
+
+        sellpublications = Sellpublications.query.get(data["id"])
+        sellpublications.update(**data["data"])
+        response_body = {
+            "message": "{Cambios realizados en la publicacion de compra}"
+        }
+        return jsonify(response_body), 200
+
+# Pagina privada
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 @api.route("/private",methods=["POST"])
 @jwt_required()

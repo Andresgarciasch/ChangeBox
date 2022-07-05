@@ -43,11 +43,12 @@ export const Navbar = () => {
                 Comprar
               </Link>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="login">
-                Ingreso
+
+            <li className="nav-item">
+              <Link className="nav-link" to="sellboard">
+                Vender
               </Link>
-            </li> */}
+            </li>
 
             <li className="nav-item dropdown">
               <a

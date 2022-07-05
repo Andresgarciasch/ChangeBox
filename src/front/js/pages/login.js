@@ -144,7 +144,7 @@ export const LogIn = () => {
       </div>
       {/* Si el token es indefinido, se redirige a la pagina principal */}
       {localStorage.getItem("token") == undefined && (
-        <Redirect to={"/"}></Redirect>
+        <Redirect to={"/login"}></Redirect>
       )}
     </section>
   );

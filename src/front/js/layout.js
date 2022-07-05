@@ -13,6 +13,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { GetPassword } from "./pages/getpassword";
 import { BuyBoard } from "./pages/buyboard";
+import { SellBoard } from "./pages/sellboard";
 
 //create your first component
 const Layout = () => {
@@ -48,6 +49,10 @@ const Layout = () => {
 
             <Route exact path="/buyboard">
               <BuyBoard />
+            </Route>
+
+            <Route exact path="/sellboard">
+              <SellBoard />
             </Route>
 
             {/* <Route exact path="/sellboard">
