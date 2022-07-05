@@ -70,27 +70,12 @@ class User(db.Model):
         db.session.commit()
         return True
 
-    # def create(self):
-    #     try:
-    #         db.session.add(self)
-    #         db.session.commit()
-    #         return True
-    #     except:
-    #         db.session.rollback()
-    #         print('An error has ocurred')
-    #         return False
-    
-    @classmethod
-    def create(cls, data):
-        try:
-            new_user = cls(**data)
-            db.session.add(new_user)
-            db.session.commit()
-            return new_user
-        except Exception as error:
-            db.session.rollback()
-            print(error)
-            return None
+    def serialize(self):
+        return {
+            "id": self.id,
+            "email": self.email,
+            # do not serialize the password, its a security breach
+        }
 
 
 
