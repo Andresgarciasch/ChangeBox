@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 export const LogIn = () => {
   const { store, actions } = useContext(Context);
   const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
+  // Se comenta setemail porque estamos pasando el username en la funcion "handleSubmit"
+  // const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [password, setPassword] = useState("");
 
   const [errors, setErrors] = useState({
-    userName: false,
+    // username: false,
     email: false,
     password: false,
   });
@@ -22,7 +22,7 @@ export const LogIn = () => {
 
   const handleSubmit = async () => {
     let data = {
-      email: email,
+      username: userName,
       password: password,
     };
     if (await actions.loginUser(data)) {
@@ -143,8 +143,9 @@ export const LogIn = () => {
           </div>
         </div>
       </div>
-      {localStorage.getItem("token") != undefined && (
-        <Redirect to={"/private"}></Redirect>
+      {/* Si el token es indefinido, se redirige a la pagina principal */}
+      {localStorage.getItem("token") == undefined && (
+        <Redirect to={"/login"}></Redirect>
       )}
     </section>
   );

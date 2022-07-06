@@ -37,6 +37,19 @@ export const Navbar = () => {
                 Ingreso
               </Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="buyboard">
+                Comprar
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="sellboard">
+                Vender
+              </Link>
+            </li>
+
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"

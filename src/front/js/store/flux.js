@@ -45,6 +45,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ demo: demo });
       },
 
+      // Registro
+
       registerUser: async (data) => {
         console.log(data);
         try {
@@ -59,9 +61,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (response.ok) {
             const body = await response.json();
-            setStore({
-              currentuser: body.user,
-            });
+            // setStore({
+            //   currentuser: body.token,
+            // });
+            localStorage.setItem("token", body.token);
             return true;
           }
           return false;
@@ -69,6 +72,29 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
+      // Login
+
+      loginUser: async (data) => {
+        try {
+          let response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(data),
+          });
+          if (response.ok) {
+            const body = await response.json();
+            localStorage.setItem("token", body.token);
+            return true;
+          } else return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      // Verificacion del usuario
 
       validationUser: async (data) => {
         // validationUser: async (id, data) => {
@@ -79,10 +105,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             {
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
               method: "PUT",
               body: JSON.stringify({
-                id: getStore().currentuser.id,
+                // id: getStore().currentuser.id,
                 data: data,
               }),
             }
@@ -96,28 +123,124 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      loginUser: async (data) => {
-        try {
-          const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: { "Content-Type": "application/json" },
-          });
+      // Publicaciones de compra
 
-          //   if (response.ok) {
-          //     return true;
-          //   }
-          //   return false;
-          // } catch (error) {
-          //   console.log(error);
-          // }
+      createBuyPublication: async (data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/buy-board`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "POST",
+              body: JSON.stringify(data),
+            }
+          );
 
           if (response.ok) {
-            let data = await response.json();
-            localStorage.setItem("token", data.token);
+            const body = await response.json();
+            getActions().getPublications();
             return true;
           }
           return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      changeBuyPublication: async (id, data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/buy-board/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "PUT",
+              body: JSON.stringify({
+                // id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      // Publicaciones de venta
+
+      createSellPublication: async (data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/sell-board`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "POST",
+              body: JSON.stringify(data),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            getActions().getPublications();
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      changeSellPublication: async (id, data) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/sell-board/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              method: "PUT",
+              body: JSON.stringify({
+                // id: getStore().currentuser.id,
+                data: data,
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const body = await response.json();
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      getPublications: async () => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/get-publications`
+          );
+          let data = await response.json();
+          setStore({
+            buypublications: data.buy_publication_list,
+            sellpublications: data.sell_publication_list,
+          });
         } catch (error) {
           console.log(error);
         }
