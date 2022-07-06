@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { PublicationReviewCard } from "../component/publicationinboard";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
@@ -106,7 +107,28 @@ export const SellBoard = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div></div>
+      <div>
+        {store.sellpublications.length > 0 &&
+          store.sellpublications.map((sellpublication, index) => {
+            return (
+              <PublicationReviewCard
+                key={index}
+                date={sellpublication.date}
+                exchange_rate={sellpublication.exchange_rate}
+                balance={sellpublication.balance}
+                message={sellpublication.message}
+                preferred_banks={sellpublication.preferred_banks}
+                username={sellpublication.username}
+                reputation={sellpublication.reputation}
+                user_id_pub={sellpublication.user_id_pub}
+              />
+            );
+          })}
+      </div>
+      {/* Si el token es indefinido, se redirige a la pagina principal */}
+      {localStorage.getItem("token") == undefined && (
+        <Redirect to={"/sell-board"}></Redirect>
+      )}
     </div>
   );
 };

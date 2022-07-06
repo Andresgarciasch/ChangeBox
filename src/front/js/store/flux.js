@@ -239,7 +239,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           let data = await response.json();
           setStore({
             buypublications: data.buy_publication_list,
-            selpublications: data.sell_publication_list,
+            sellpublications: data.sell_publication_list,
           });
         } catch (error) {
           console.log(error);
