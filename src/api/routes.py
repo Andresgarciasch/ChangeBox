@@ -141,6 +141,20 @@ def handle_sell():
         }
         return jsonify(response_body), 200
 
+# Ruta para obtener publicaciones
+@api.route('/get-publications', methods=['GET'])
+def handle_get_publications():
+    buy_publication_list = Buypublications.query.all()
+    sell_publication_list = Sellpublications.query.all()
+    buy_publication_list = [buy_publication.serialize() for buy_publication in buy_publication_list]
+    sell_publication_list = [sell_publication.serialize() for sell_publication in sell_publication_list]
+    response_body = {
+        "buy_publication_list": buy_publication_list,
+        "sell_publication_list": sell_publication_list,
+        "message": "{Publicaciones enviadas con exito}"
+    }
+    return jsonify(response_body), 200
+
 # Pagina privada
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
@@ -149,4 +163,4 @@ def handle_sell():
 def handle_private():
     current_id_user = get_jwt_identity()
     userInfo = User.query.get(current_id_user)
-    return jsonify(current_user), 200
+    return jsonify(current_id_user), 200

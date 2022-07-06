@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { PublicationReviewCard } from "../component/publicationinboard";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
@@ -106,7 +107,24 @@ export const BuyBoard = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div></div>
+      <div>
+        {store.buypublications.length > 0 &&
+          store.buypublications.map((buypublication, index) => {
+            return (
+              <PublicationReviewCard
+                key={index}
+                date={buypublication.date}
+                exchange_rate={buypublication.exchange_rate}
+                balance={buypublication.balance}
+                message={buypublication.message}
+                preferred_banks={buypublication.preferred_banks}
+                username={buypublication.username}
+                reputation={buypublication.reputation}
+                user_id_pub={buypublication.user_id_pub}
+              />
+            );
+          })}
+      </div>
     </div>
   );
 };

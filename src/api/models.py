@@ -132,21 +132,24 @@ class Buypublications(db.Model):
     #     return True
 
     def serialize(self):
+        user = User.query.get(self.user_id_pub)
         return {
             "id": self.id,
             "date": self.date,
             "exchange_rate": self.exchange_rate,
             "balance": self.balance,
-            "message": self.balance
+            "message": self.message,
+            "username": user.username,
+            "reputation": user.reputation
         }
 
 
 
 
-# Transacción de venta
+# Transacción de venta 
 class Sellpublications(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, unique=False, nullable=False)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow, unique=False, nullable=False)
     exchange_rate = db.Column(db.Float, unique=False, nullable=False)
     balance = db.Column(db.Float, unique=False, nullable=False)
     message = db.Column(db.String(280), unique=False, nullable=False)
@@ -173,7 +176,7 @@ class Sellpublications(db.Model):
             print(error)
             return None
 
-    def update(self, new_exchange_rate, new_balance, new_message, new_preferred_banks):
+    def update(self, exchange_rate, balance, message, preferred_banks):
         self.exchange_rate = exchange_rate
         self.balance = balance
         self.message = message
@@ -189,12 +192,15 @@ class Sellpublications(db.Model):
     #     return True
 
     def serialize(self):
+        user = User.query.get(self.user_id_pub)
         return {
             "id": self.id,
             "date": self.date,
             "exchange_rate": self.exchange_rate,
             "balance": self.balance,
-            "message": self.balance
+            "message": self.message,
+            "username": user.username,
+            "reputation": user.reputation
         }
 
 

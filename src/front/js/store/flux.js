@@ -141,6 +141,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (response.ok) {
             const body = await response.json();
+            getActions().getPublications();
             return true;
           }
           return false;
@@ -194,6 +195,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           if (response.ok) {
             const body = await response.json();
+            getActions().getPublications();
             return true;
           }
           return false;
@@ -224,6 +226,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             return true;
           }
           return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+
+      getPublications: async () => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/get-publications`
+          );
+          let data = await response.json();
+          setStore({
+            buypublications: data.buy_publication_list,
+            selpublications: data.sell_publication_list,
+          });
         } catch (error) {
           console.log(error);
         }

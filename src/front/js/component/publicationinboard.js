@@ -28,8 +28,17 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-// export function PublicationReviewCard({ date, exchange_rate, balance, message, preferred_banks, user_id_pub }) {
-export function PublicationReviewCard() {
+export function PublicationReviewCard({
+  date,
+  exchange_rate,
+  balance,
+  message,
+  preferred_banks,
+  username,
+  reputation,
+  user_id_pub,
+}) {
+  // export function PublicationReviewCard() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -51,9 +60,9 @@ export function PublicationReviewCard() {
           </IconButton>
         }
         // En el title se coloca el nombre del usuario
-        title="Nombre de usuario"
+        title={username}
         // En el subheader se puede colocar la reputacion y los trades completados
-        subheader="Reputacion"
+        subheader={reputation}
       />
       {/* <CardMedia
         component="img"
@@ -65,11 +74,11 @@ export function PublicationReviewCard() {
         {/* <Typography variant="body2" color="text.secondary"> */}
         <Typography variant="body2">
           {/* Aqui iria la tasa de cambio */}
-          Tasa de cambio
+          {exchange_rate}
         </Typography>
         <Typography variant="body2">
           {/* Aqui iria el balance a cangear */}
-          Balance
+          {balance}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -94,7 +103,12 @@ export function PublicationReviewCard() {
           <Typography paragraph>
             {/* Aqui iria el mensaje que la gente quiera colocar
             Corresponderia a cualquier descripcion */}
-            Mensaje
+            {message}
+          </Typography>
+          <Typography paragraph>
+            {/* Aqui iria el mensaje que la gente quiera colocar
+            Corresponderia a cualquier descripcion */}
+            {preferred_banks}
           </Typography>
         </CardContent>
       </Collapse>
