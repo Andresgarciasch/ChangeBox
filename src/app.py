@@ -13,6 +13,8 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 
+# from flask import render_template
+from flask_socketio import SocketIO, send
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -23,6 +25,11 @@ app.url_map.strict_slashes = False
 # jwt condiguration
 app.config["JWT_SECRET_KEY"] = "super-secret-mega-duper-secret"  # Change this!
 jwt = JWTManager(app)
+
+# socketio configuration
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# app.config['SECRET'] = "secret!123"
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -67,6 +74,13 @@ def serve_any_other_file(path):
     response = send_from_directory(static_file_dir, path)
     response.cache_control.max_age = 0 # avoid cache memory
     return response
+
+# Funcion chat
+@socketio.on('message')
+def handle_message(message):
+    print("received message: " + message)
+    if message != "User connected!":
+        send(message, broadcast=True)
 
 
 # this only runs if `$ python src/main.py` is executed
