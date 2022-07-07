@@ -16,8 +16,41 @@
       integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
       crossorigin="anonymous"
     />
+    <!-- Chat -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"
+      integrity="sha512-MVIvu+RrRZ8i4gxYMF/87ww/ErVLaW+O1lMHUpNTn0lW5NVXhxALXkQ1vnQbzpalm5eXVhzSmF7Rzf7JVoBhTQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+      integrity="sha512-jGsMH83oKe9asCpkOVkBnUrDDTp8wl+adkB2D+//JtlxO4SrLoJdhbOysIFQJloQFD+C4Fl1rMsQZF76JjV0eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Chat -->
   </head>
   <body class="h-100">
+    <!-- Chat -->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var socket = io.connect(
+          "https://3001-andresgarcias-changebox-nd8kef8maet.ws-us52.gitpod.io/"
+        );
+        socket.on("connect", function () {
+          socket.send("User connected!");
+        });
+        socket.on("message", function (data) {
+          $("#messages").append($("<p>").text(data));
+        });
+        $("#sendBtn").on("click", function () {
+          socket.send($("#username").val() + ": " + $("#message").val());
+          $("#message").val("");
+        });
+      });
+    </script>
+    <!-- Chat -->
     <div id="app" class="h-100"></div>
 
     <script
