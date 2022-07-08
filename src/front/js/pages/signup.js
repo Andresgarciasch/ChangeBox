@@ -33,7 +33,7 @@ export const SignUp = () => {
       password: password,
     };
     if (actions.registerUser(data)) {
-      history.push("/private");
+      history.push("/buyboard");
     } else {
       alert("Algo salio mal intente de nuevo");
     }
@@ -345,7 +345,7 @@ export const SignUp = () => {
         </div>
       </div>
       {localStorage.getItem("token") != undefined && (
-        <Redirect to={"/private"}></Redirect>
+        <Redirect to={"/buyboard"}></Redirect>
       )}
     </section>
   );

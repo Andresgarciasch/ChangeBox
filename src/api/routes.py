@@ -78,8 +78,6 @@ def handle_login():
 # Publicaciones de compra
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-<<<<<<< HEAD
-=======
 @api.route('/buy-board', methods=['POST','PUT'])
 @jwt_required()
 def handle_buy():
@@ -160,14 +158,9 @@ def handle_get_publications():
 # Pagina privada
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
->>>>>>> DB
 @api.route("/private",methods=["POST"])
 @jwt_required()
 def handle_private():
     current_id_user = get_jwt_identity()
     userInfo = User.query.get(current_id_user)
-<<<<<<< HEAD
-    return jsonify(current_user), 200
-=======
     return jsonify(current_id_user), 200
->>>>>>> DB

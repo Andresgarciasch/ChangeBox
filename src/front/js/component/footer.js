@@ -1,29 +1,29 @@
 import React, { Component } from "react";
+import "../../styles/footer.css";
 
 export const Footer = () => (
-  <footer className=" bg-primary py-3 text-center">
+  <footer className="futer d-flex py-3 text-center">
     <div className="d-flex  bg-primary justify-content-center">
-      <div className="one mr-5">
-        <h4>Quienes somos</h4>
-        <h6>Andres Garcia</h6>
-        <h6>Frank Gonzalez</h6>
-        <body className="bg-primary">Estudiantes de 4GeeksAcademy</body>
+      <div className="one mr-2 d-flex flex-column">
+        <h6>Quienes somos</h6>
+        <span>Andres Garcia</span>
+        <span>Frank Gonzalez</span>
       </div>
 
       <div className="two mx-5">
-        <h4>Proximamente</h4>
-        <h6>ChangeBox 2.0</h6>
+        <h6>Proximamente</h6>
+        <span>ChangeBox 2.0</span>
       </div>
 
       <div className="four mx-5">
-        <h4>Sede</h4>
-        <h6>Venezuela</h6>
+        <h6>Sede</h6>
+        <span>Venezuela</span>
       </div>
 
-      <div className="three ml-5">
-        <h4>Contacto</h4>
-        <h6>+58 412-401 7284</h6>
-        <h6>andres_28garcia@outlook.es</h6>
+      <div className="three ml-5 d-flex flex-column">
+        <h6>Contacto</h6>
+        <span>+58 412-401 7284</span>
+        <span>andres_28garcia@outlook.es</span>
       </div>
     </div>
   </footer>
