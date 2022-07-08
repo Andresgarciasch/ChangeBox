@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-//import "src/front/styles/navbar.css";
+import "../../styles/navbar.css";
 
 export const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+      <div className="c container-fluid">
+        <a className="cb navbar-brand" href="#">
           ChangeBox
         </a>
         <button
@@ -59,7 +59,7 @@ export const Navbar = () => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown link
+                Ajustes
               </a>
               <ul
                 className="dropdown-menu"
@@ -67,17 +67,17 @@ export const Navbar = () => {
               >
                 <li>
                   <a className="dropdown-item" href="#">
-                    Action
+                    Perfil
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    Another action
+                    Historial
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    Something else here
+                    Cerrar sesion
                   </a>
                 </li>
               </ul>

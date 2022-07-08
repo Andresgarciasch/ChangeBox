@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { PublicationReviewCard } from "../component/publicationinboard";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
 
 // import * as React from "react";
 import Button from "@mui/material/Button";

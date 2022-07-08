@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
+import LOGO1 from "../../img/LOGO 1.png";
 
 export const SignUp = () => {
   const { store, actions } = useContext(Context);
@@ -33,24 +34,35 @@ export const SignUp = () => {
       password: password,
     };
     if (actions.registerUser(data)) {
-      history.push("/private");
+      history.push("/buyboard");
     } else {
       alert("Algo salio mal intente de nuevo");
     }
   };
 
   return (
-    <section className="vh-100" style={{ backgroundColor: "#eee" }}>
-      <div className="container h-100">
+    <section className="fondo">
+      <div className="container  h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
-            <div className="card text-black" style={{ borderRadius: "25px" }}>
+            <div className="card text-black" style={{ borderRadius: "50px" }}>
               <div className="card-body p-md-5">
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Registro
-                    </p>
+                    <div className="d-flex justify-content-center">
+                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                        Registro
+                      </p>
+
+                      <button
+                        className="fa-solid fa-question"
+                        onClick={() =>
+                          alert(
+                            "Nombre de usuario: 1. solo puede contener caracteres alfanumericos, barra baja y puntos 2. el punto y la barra baja no pueden ir ni al comienzo ni al final ni juntos 3. minimo 8 caracteres y maximo 20        Contraseña: 1. al menos una mayuscula y una minuscula 2. al menos un caracter numerico y un caracter especial 3. minimo de 8 caracteres"
+                          )
+                        }
+                      ></button>
+                    </div>
 
                     <form className="mx-1 mx-md-4">
                       <div className="d-flex flex-row align-items-center mb-4">
@@ -187,17 +199,6 @@ export const SignUp = () => {
                         </div>
                       </div> */}
 
-                      {/* <div className="d-flex flex-row align-items-center mb-4">
-                        <label className="form-label" htmlFor="form3Example4c">
-                          Fecha de Nacimiento
-                          <input
-                            type="date"
-                            className="form-control"
-                            onChange={(e) => setBirthday(e.target.value)}
-                          />
-                        </label>
-                      </div> */}
-
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
@@ -332,11 +333,7 @@ export const SignUp = () => {
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                      className="img-fluid"
-                      alt="Sample image"
-                    />
+                    <img src={LOGO1} className="img-fluid" alt="Sample image" />
                   </div>
                 </div>
               </div>
@@ -344,8 +341,13 @@ export const SignUp = () => {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       {localStorage.getItem("token") == undefined && (
         <Redirect to={"/signup"}></Redirect>
+=======
+      {localStorage.getItem("token") != undefined && (
+        <Redirect to={"/buyboard"}></Redirect>
+>>>>>>> andres
       )}
     </section>
   );

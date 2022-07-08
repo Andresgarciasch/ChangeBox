@@ -3,8 +3,6 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { PublicationReviewCard } from "../component/publicationinboard";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
 
 // import * as React from "react";
 import Button from "@mui/material/Button";
@@ -14,6 +12,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import "../../styles/buybord.css";
 
 export const BuyBoard = () => {
   const { store, actions } = useContext(Context);

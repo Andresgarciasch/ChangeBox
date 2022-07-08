@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
+import LOGO1 from "../../img/LOGO 1.png";
 
 export const GetPassword = () => {
   const { store, actions } = useContext(Context);
@@ -34,7 +35,7 @@ export const GetPassword = () => {
   //   por modificar registerUser a logUser creando nuevo endpoint
 
   return (
-    <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+    <section className="fondo">
       <div className="container h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
@@ -62,11 +63,6 @@ export const GetPassword = () => {
                             className="form-control"
                             onChange={(e) => setUserName(e.target.value)}
                           />
-                          {errors.userName && (
-                            <div className="text-warning">
-                              Nombre de Usuario Invalido
-                            </div>
-                          )}
                         </div>
                       </div>
 
@@ -84,19 +80,7 @@ export const GetPassword = () => {
                             id="form3Example3c"
                             className="form-control"
                             onChange={(e) => setEmail(e.target.value)}
-                            onBlur={(e) => {
-                              let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-                              if (regex.test(email)) {
-                                setErrors({ ...errors, email: false });
-                              } else {
-                                setErrors({ ...errors, email: true });
-                              }
-                            }}
-                          />
-                          {errors.email && (
-                            <div className="text-warning">Correo Invalido</div>
-                          )}
+                          ></input>
                         </div>
                       </div>
 
@@ -107,7 +91,7 @@ export const GetPassword = () => {
                             className="form-label"
                             htmlFor="form3Example4c"
                           >
-                            Contraseña
+                            Contraseña Nueva
                           </label>
                           <div className="d-flex">
                             <input
@@ -161,17 +145,13 @@ export const GetPassword = () => {
                           //   !password.length > 0
                           // }
                         >
-                          Ingresar
+                          Cambiar
                         </button>
                       </div>
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                      className="img-fluid"
-                      alt="Sample image"
-                    />
+                    <img src={LOGO1} className="img-fluid" alt="Sample image" />
                   </div>
                 </div>
               </div>
