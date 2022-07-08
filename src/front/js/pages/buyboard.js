@@ -23,7 +23,7 @@ export const BuyBoard = () => {
   const [preferredBanks, setPreferredBanks] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,7 +42,9 @@ export const BuyBoard = () => {
       preferred_banks: preferredBanks,
     };
     if (actions.createBuyPublication(data)) {
-      history.push("/buy-board");
+      handleClose();
+      //alert("Publicacion creada");
+      //history.push("/buyboard");
     } else {
       alert("?????");
     }
@@ -108,7 +110,8 @@ export const BuyBoard = () => {
         </Dialog>
       </div>
       <div>
-        {store.buypublications.length > 0 &&
+        {store.buypublications &&
+          store.buypublications.length > 0 &&
           store.buypublications.map((buypublication, index) => {
             return (
               <PublicationReviewCard

@@ -23,11 +23,6 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="validation">
-                Verificacion
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="signup">
                 Registro
               </Link>
@@ -38,6 +33,11 @@ export const Navbar = () => {
               </Link>
             </li>
 
+            <li className="nav-item">
+              <Link className="nav-link" to="validation">
+                Verificacion
+              </Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="buyboard">
                 Comprar
@@ -50,7 +50,7 @@ export const Navbar = () => {
               </Link>
             </li>
 
-            <li className="nav-item dropdown">
+            {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
@@ -81,7 +81,7 @@ export const Navbar = () => {
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

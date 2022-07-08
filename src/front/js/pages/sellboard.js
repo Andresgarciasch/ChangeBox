@@ -23,7 +23,7 @@ export const SellBoard = () => {
   const [preferredBanks, setPreferredBanks] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const history = useHistory();
+  // const history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,7 +42,8 @@ export const SellBoard = () => {
       preferred_banks: preferredBanks,
     };
     if (actions.createSellPublication(data)) {
-      history.push("/sell-board");
+      handleClose();
+      //history.push("/sell-board");
     } else {
       alert("?????");
     }
@@ -108,7 +109,8 @@ export const SellBoard = () => {
         </Dialog>
       </div>
       <div>
-        {store.sellpublications.length > 0 &&
+        {store.sellpublications &&
+          store.sellpublications.length > 0 &&
           store.sellpublications.map((sellpublication, index) => {
             return (
               <PublicationReviewCard

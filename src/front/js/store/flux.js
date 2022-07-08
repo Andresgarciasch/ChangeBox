@@ -245,6 +245,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(error);
         }
       },
+
+      getUserInfoByUsername: async (username) => {
+        try {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/api/get-userinfo/${username}`
+          );
+          if (response.ok) {
+            let data = await response.json();
+            setStore({
+              userinfobyusername: data,
+            });
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.log(error);
+        }
+      },
     },
   };
 };

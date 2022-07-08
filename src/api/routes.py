@@ -155,6 +155,16 @@ def handle_get_publications():
     }
     return jsonify(response_body), 200
 
+
+# Obtener datos para mostrar en modal publicaciones
+@api.route('/get-userinfo/<string:username>', methods=['GET'])
+def handle_modal_userinfo(username):
+    userinfo = User.query.filter_by(username=username).one_or_none()
+    if userinfo is None:
+        return jsonify({"msg": "Usuario no encontrado"}), 404
+    return jsonify(userinfo.serialize()), 200
+
+
 # Pagina privada
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 

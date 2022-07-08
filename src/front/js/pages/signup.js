@@ -344,8 +344,8 @@ export const SignUp = () => {
           </div>
         </div>
       </div>
-      {localStorage.getItem("token") != undefined && (
-        <Redirect to={"/private"}></Redirect>
+      {localStorage.getItem("token") == undefined && (
+        <Redirect to={"/signup"}></Redirect>
       )}
     </section>
   );
