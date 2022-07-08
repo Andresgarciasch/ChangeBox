@@ -65,7 +65,7 @@ export const SellBoard = () => {
               margin="dense"
               id="name"
               label="Tasa de cambio"
-              type="float"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setExchangeRate(e.target.value)}
@@ -75,7 +75,7 @@ export const SellBoard = () => {
               margin="dense"
               id="name"
               label="Saldo"
-              type="float"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setBalance(e.target.value)}

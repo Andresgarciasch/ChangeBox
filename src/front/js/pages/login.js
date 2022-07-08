@@ -26,7 +26,7 @@ export const LogIn = () => {
       password: password,
     };
     if (await actions.loginUser(data)) {
-      history.push("/private");
+      history.push("/validation");
     } else {
       alert("CREDENCIALES INVALIDAS");
     }

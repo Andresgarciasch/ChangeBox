@@ -66,7 +66,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Tasa de cambio"
-              type="float"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setExchangeRate(e.target.value)}
@@ -76,7 +76,7 @@ export const BuyBoard = () => {
               margin="dense"
               id="name"
               label="Saldo"
-              type="float"
+              type="text"
               fullWidth
               variant="standard"
               onChange={(e) => setBalance(e.target.value)}
@@ -108,7 +108,7 @@ export const BuyBoard = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div>
+      <div className="cartas">
         {store.buypublications &&
           store.buypublications.length > 0 &&
           store.buypublications.map((buypublication, index) => {

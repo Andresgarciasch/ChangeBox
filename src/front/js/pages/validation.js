@@ -24,7 +24,7 @@ export const Validation = () => {
     };
     // if (await actions.validationUser(data)) {
     if (actions.validationUser(data)) {
-      history.push("/private");
+      history.push("/buyboard");
     } else {
       alert("DATOS PARA VERIFICACION ENVIADOS");
     }
@@ -42,7 +42,7 @@ export const Validation = () => {
                 <div className="row justify-content-center">
                   <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                     <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Formulario de validacion
+                      Formulario de verificación
                     </p>
 
                     <form className="mx-1 mx-md-4">
@@ -109,7 +109,7 @@ export const Validation = () => {
                             className="form-label"
                             htmlFor="form3Example3c"
                           >
-                            Cedula de indentidad
+                            Cédula de indentidad
                           </label>
                           <input
                             id="form3Example3c"
