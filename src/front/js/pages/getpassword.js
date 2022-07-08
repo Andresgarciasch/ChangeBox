@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
+import LOGO1 from "../../img/LOGO 1.png";
 
 export const GetPassword = () => {
   const { store, actions } = useContext(Context);
@@ -34,7 +35,7 @@ export const GetPassword = () => {
   //   por modificar registerUser a logUser creando nuevo endpoint
 
   return (
-    <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+    <section className="fondo">
       <div className="container h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
@@ -150,11 +151,7 @@ export const GetPassword = () => {
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                      className="img-fluid"
-                      alt="Sample image"
-                    />
+                    <img src={LOGO1} className="img-fluid" alt="Sample image" />
                   </div>
                 </div>
               </div>

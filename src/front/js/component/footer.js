@@ -3,7 +3,7 @@ import "../../styles/footer.css";
 
 export const Footer = () => (
   <footer className="futer d-flex py-3 text-center">
-    <div className="d-flex  bg-primary justify-content-center">
+    <div className="d-flex justify-content-center">
       <div className="one mr-2 d-flex flex-column">
         <h6>Quienes somos</h6>
         <span>Andres Garcia</span>

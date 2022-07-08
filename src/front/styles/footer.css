@@ -1,5 +1,20 @@
 .futer {
-  background-color: red;
-  position: absolute;
+  background: linear-gradient(90deg, turquoise, skyblue);
+  position: relative;
   bottom: 0;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+html {
+  padding-bottom: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }

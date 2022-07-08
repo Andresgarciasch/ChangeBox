@@ -1,0 +1,33 @@
+html {
+  background: rgb(219, 237, 243);
+}
+
+.fondo {
+  background: rgb(219, 237, 243);
+  padding: 10px;
+}
+
+.nav-item {
+  border-right: 2px solid skyblue;
+  border-left: 2px solid skyblue;
+}
+
+.navbar {
+  height: 50px;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0;
+}
+
+.c {
+  padding: 0;
+  height: 100% !important;
+  background: linear-gradient(90deg, skyblue, turquoise);
+}
+
+.cb {
+  margin: 0;
+  height: 100%;
+  width: 120px;
+  text-align: center;
+}
