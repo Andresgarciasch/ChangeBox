@@ -140,7 +140,8 @@ class Buypublications(db.Model):
             "balance": self.balance,
             "message": self.message,
             "username": user.username,
-            "reputation": user.reputation
+            "reputation": user.reputation,
+            "preferred_banks": self.preferred_banks
         }
 
 
@@ -200,7 +201,8 @@ class Sellpublications(db.Model):
             "balance": self.balance,
             "message": self.message,
             "username": user.username,
-            "reputation": user.reputation
+            "reputation": user.reputation,
+            "preferred_banks": self.preferred_banks
         }
 
 
